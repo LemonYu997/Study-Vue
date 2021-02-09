@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-if</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <button @click="show = !show">点我</button>
+    <h2 v-if="show">
+        Hello Vue.js
+    </h2>
+    <hr>
+    <ul>
+        <li v-for="(user, index) in users" v-if="user.gender=='女'" style="background-color: pink">
+            {{index}}--{{user.name}}--{{user.age}}--{{user.gender}}
+        </li>
+        <li v-else style="background-color: lightblue">
+            {{index}}--{{user.name}}--{{user.age}}--{{user.gender}}
+        </li>
+    </ul>
+    <hr>
+    <!--同v-if相比，以下代码会留在DOM中，而if会删除-->
+    <h2 v-show="show">
+        你好！
+    </h2>
+</div>
+<script type="text/javascript">
+    var app = new Vue({
+        el:"#app",
+        data:{
+            show:true,
+            users:[
+                {"name":"张三", age:13, "gender":"男"},
+                {"name":"王五", age:15, "gender":"女"},
+                {"name":"李四", age:23, "gender":"男"},
+                {"name":"老八", age:22, "gender":"女"}
+            ]
+        }
+    });
+</script>
+</body>
+</html>

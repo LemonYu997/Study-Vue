@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h2>num = {{num}}</h2>
+    <!--使用组件-->
+    <counter @plus="numPlus" @reduce="numReduce" :snum="num"></counter>
+</div>
+<script type="text/javascript">
+
+    //定义组件
+    const counter = {
+        //组件只能是一个元素里面包含其他元素，不能有多个独立的元素
+        //因此两个按钮可以拿一个div包起来
+        template:`
+                <div>
+                    <button @click='incrNum'>+</button>
+                    <button @click='decrNum'>-</button>
+                </div>
+        `,
+        props:["snum"],
+        methods:{
+            //点击模板中使用的方法
+            incrNum(){
+                //调用到父组件中的方法
+                return this.$emit("plus");
+            },
+            decrNum(){
+                //调用到父组件中的方法
+                return this.$emit("reduce");
+            }
+        }
+    };
+
+    var app = new Vue({
+        el: "#app",
+        //局部注册组件
+        components:{
+            counter: counter
+        },
+        data:{
+            num:0
+        },
+        methods:{
+            //父组件中定义操作num得方法
+            numPlus(){
+                this.num++;
+            },
+            numReduce(){
+                this.num--;
+            }
+        }
+    });
+</script>
+</body>
+</html>

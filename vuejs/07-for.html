@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-for</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="(user, index) in users":key="index">
+           {{index}} {{user.name}}--{{user.age}}--{{user.gender}}
+        </li>
+    </ul>
+    <ul>
+        <li v-for="(value, key, index) in person">
+            {{index}}--{{key}}--{{value}}
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    var app = new Vue({
+        el:"#app",
+        data:{
+            users:[
+                {"name":"张三", age:13, "gender":"男"},
+                {"name":"王五", age:15, "gender":"女"},
+                {"name":"李四", age:23, "gender":"男"}
+            ],
+            person:{"name":"测试一下", "age":18, "gender":"男", "address":"中国"}
+        }
+    });
+</script>
+</body>
+</html>

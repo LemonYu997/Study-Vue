@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--使用组件myList，有大写的话写法转为my-list-->
+    <my-list :items="lessons"></my-list>
+</div>
+<script type="text/javascript">
+
+    //定义组件
+    const myList = {
+        //直接使用props接收到的属性来渲染页面
+        template: `
+            <ul>
+                <li v-for="item in items" :key="item.id">{{item.id}}--{{item.name}}</li>
+            </ul>`,
+        //通过props来接收一个父组件传递的属性
+        props: {
+            items: {
+                //数据类型，如果是数组则是Array，如果是对象则是Object
+                type: Array,
+                //默认值，如果父组件没有传，则取此值
+                default: []
+                /**
+                 * 如果是对象，default要写成方法的方式返回默认值：
+                 * default() {
+                 *     return {"xxx":"默认值"};
+                 * }
+                 * */
+            }
+        }
+    };
+
+    var app = new Vue({
+        el: "#app",
+        data: {
+            msg: "父组件的msg属性数据内容",
+            lessons:[
+                {"id":1, "name":"Java"},
+                {"id":2, "name":"Go"},
+                {"id":3, "name":"C++"}
+            ]
+        },
+        //局部注册组件
+        components:{
+            myList:myList
+        }
+    });
+</script>
+</body>
+</html>
